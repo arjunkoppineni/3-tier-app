@@ -13,8 +13,10 @@ phases:
     runtime-versions:
       java: corretto17
     commands:
-      - echo Installing Maven...
+      - echo Installing Maven and Docker...
       - yum install -y maven docker
+      - echo Installing Trivy...
+      - curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
 
   pre_build:
     commands:
@@ -31,6 +33,8 @@ phases:
       - echo Building Docker image...
       - docker build -t $REPO_NAME:$IMAGE_TAG .
       - docker tag $REPO_NAME:$IMAGE_TAG $IMAGE_URI
+      - echo Scanning Docker image with Trivy...
+      - trivy image --exit-code 1 --severity HIGH,CRITICAL $IMAGE_URI
       - cd ..
 
   post_build:
