@@ -6,7 +6,7 @@ env:
     REGION: us-west-1
     REPO_NAME: test
     IMAGE_TAG: latest1
-    IMAGE_URI: 216989142685.dkr.ecr.us-east-1.amazonaws.com/test:latest1
+    IMAGE_URI: 216989142685.dkr.ecr.us-west-1.amazonaws.com/test:latest1
 
 phases:
   install:
